@@ -101,6 +101,10 @@ type Config struct {
 	WorkingDirectory string // Initial working directory.
 	ChRoot           string
 
+	// Systemd Custom
+	SystemdCustomUnit    []string
+	SystemdCustomService []string
+
 	// System specific options.
 	//  * OS X
 	//    - KeepAlive     bool (true)
@@ -111,6 +115,7 @@ type Config struct {
 	//    - RunWait      func() (wait for SIGNAL) - Do not install signal but wait for this function to return.
 	//    - ReloadSignal string () [USR1, ...] - Signal to send on reaload.
 	//    - PIDFile     string () [/run/prog.pid] - Location of the PID file.
+	//    -
 	Option KeyValue
 }
 
