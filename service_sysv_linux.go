@@ -72,10 +72,12 @@ func (s *sysv) Install() error {
 
 	var to = &struct {
 		*Config
-		Path string
+		Path    string
+		PIDFile string
 	}{
 		s.Config,
 		path,
+		s.Option.string(optionPIDFile, ""),
 	}
 
 	err = s.template().Execute(f, to)
@@ -172,7 +174,7 @@ const sysvScript = `#!/bin/sh
 cmd="{{.Path}}{{range .Arguments}} {{.|cmd}}{{end}}"
 
 name=$(basename $(readlink -f $0))
-{{if .PIDFile}}pid_file={{.PIDFile|cmd}}
+{{if .PIDFile}}pid_file="{{.PIDFile|cmd}}"{{else}}pid_file="/var/run/$name.pid"{{end}}
 {{else}}pid_file="/var/run/$name.pid"{{end}}
 stdout_log="/var/log/$name.log"
 stderr_log="/var/log/$name.err"

@@ -79,14 +79,18 @@ func (s *systemd) Install() error {
 
 	var to = &struct {
 		*Config
-		Path         string
-		ReloadSignal string
-		PIDFile      string
+		Path                 string
+		ReloadSignal         string
+		PIDFile              string
+		SystemdCustomUnit    []string
+		SystemdCustomService []string
 	}{
 		s.Config,
 		path,
 		s.Option.string(optionReloadSignal, ""),
 		s.Option.string(optionPIDFile, ""),
+		s.Option.array(optionSystemdCustomUnit,[]string{})
+		s.Option.array(optionSystemdCustomService,[]string{})
 	}
 
 	err = s.template().Execute(f, to)
@@ -172,7 +176,6 @@ Restart=always
 RestartSec=120
 {{range .SystemdCustomService}}{{.}}
 {{end}}
-
 
 [Install]
 WantedBy=multi-user.target

@@ -76,9 +76,11 @@ const (
 	optionSessionCreate        = "SessionCreate"
 	optionSessionCreateDefault = false
 
-	optionRunWait      = "RunWait"
-	optionReloadSignal = "ReloadSignal"
-	optionPIDFile      = "PIDFile"
+	optionRunWait              = "RunWait"
+	optionReloadSignal         = "ReloadSignal"
+	optionPIDFile              = "PIDFile"
+	optionSystemdCustomUnit    = "SystemdCustomUnit"
+	optionSystemdCustomService = "SystemdCustomService"
 )
 
 // Config provides the setup for a Service. The Name field is required.
@@ -169,6 +171,17 @@ func (kv KeyValue) int(name string, defaultValue int) int {
 func (kv KeyValue) string(name string, defaultValue string) string {
 	if v, found := kv[name]; found {
 		if castValue, is := v.(string); is {
+			return castValue
+		}
+	}
+	return defaultValue
+}
+
+// string returns the value of the given name, assuming the value is a []string.
+// If the value isn't found or is not of the type, the defaultValue is returned.
+func (kv KeyValue) array(name string, defaultValue []string) []string {
+	if v, found := kv[name]; found {
+		if castValue, is := v.([]string); is {
 			return castValue
 		}
 	}
