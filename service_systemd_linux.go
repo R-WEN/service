@@ -89,8 +89,8 @@ func (s *systemd) Install() error {
 		path,
 		s.Option.string(optionReloadSignal, ""),
 		s.Option.string(optionPIDFile, ""),
-		s.Option.array(optionSystemdCustomUnit,[]string{})
-		s.Option.array(optionSystemdCustomService,[]string{})
+		s.Option.array(optionSystemdCustomUnit, []string{}),
+		s.Option.array(optionSystemdCustomService, []string{}),
 	}
 
 	err = s.template().Execute(f, to)
