@@ -166,12 +166,12 @@ ConditionFileIsExecutable={{.Path|cmdEscape}}
 [Service]
 StartLimitInterval=5
 StartLimitBurst=10
-ExecStart={{.Path|cmdEscape}}{{range .Arguments}} {{.}}{{end}}
+ExecStart={{.Path|cmdEscape}}{{range .Arguments}} {{.|cmdEscape}}{{end}}
 {{if .ChRoot}}RootDirectory={{.ChRoot|cmd}}{{end}}
 {{if .WorkingDirectory}}WorkingDirectory={{.WorkingDirectory|cmdEscape}}{{end}}
 {{if .UserName}}User={{.UserName}}{{end}}
 {{if .ReloadSignal}}ExecReload=/bin/kill -{{.ReloadSignal}} "$MAINPID"{{end}}
-{{if .PIDFile}}PIDFile={{.PIDFile|cmd}}{{end}}
+{{if .PIDFile}}PIDFile={{.PIDFile|cmdEscape}}{{end}}
 Restart=always
 RestartSec=120
 {{range .SystemdCustomService}}{{.}}
