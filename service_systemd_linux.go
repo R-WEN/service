@@ -156,8 +156,7 @@ func (s *systemd) Restart() error {
 const systemdScript = `[Unit]
 Description={{.Description}}
 ConditionFileIsExecutable={{.Path|cmdEscape}}
-{{range .SystemdCustomUnit}}
-{{.}}
+{{range .SystemdCustomUnit}}{{.}}
 {{end}}
 
 [Service]
@@ -171,8 +170,7 @@ ExecStart={{.Path|cmdEscape}}{{range .Arguments}} {{.|cmd}}{{end}}
 {{if .PIDFile}}PIDFile={{.PIDFile|cmd}}{{end}}
 Restart=always
 RestartSec=120
-{{range .SystemdCustomService}}
-{{.}}
+{{range .SystemdCustomService}}{{.}}
 {{end}}
 
 

@@ -101,10 +101,6 @@ type Config struct {
 	WorkingDirectory string // Initial working directory.
 	ChRoot           string
 
-	// Systemd Custom
-	SystemdCustomUnit    []string
-	SystemdCustomService []string
-
 	// System specific options.
 	//  * OS X
 	//    - KeepAlive     bool (true)
