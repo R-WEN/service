@@ -38,16 +38,15 @@ func init() {
 			return is
 		},
 		new: newSystemdService,
-	}
-		linuxSystemService{
-			name:   "unix-systemv",
-			detect: func() bool { return true },
-			interactive: func() bool {
-				is, _ := isInteractive()
-				return is
-			},
-			new: newSystemVService,
+	}, linuxSystemService{
+		name:   "unix-systemv",
+		detect: func() bool { return true },
+		interactive: func() bool {
+			is, _ := isInteractive()
+			return is
 		},
+		new: newSystemVService,
+	},
 	)
 }
 
