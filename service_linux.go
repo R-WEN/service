@@ -38,16 +38,7 @@ func init() {
 			return is
 		},
 		new: newSystemdService,
-	},
-		linuxSystemService{
-			name:   "linux-upstart",
-			detect: isUpstart,
-			interactive: func() bool {
-				is, _ := isInteractive()
-				return is
-			},
-			new: newUpstartService,
-		},
+	}
 		linuxSystemService{
 			name:   "unix-systemv",
 			detect: func() bool { return true },
